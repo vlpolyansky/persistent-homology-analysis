@@ -1,0 +1,24 @@
+{
+  "data_folder": "../../data/",
+
+  "algo": "PCA",
+  "dim": 3,
+
+  "filter_labels": [6],
+  "num_angles": 16,
+
+  "save_dir": "./save/",
+  "logs_dir": "./logs/",
+
+  "input_shape": [28, 28],
+  "classes": 10,
+
+  "try_load": true,
+
+  "encoded_save_suffix": "encoded.txt",
+
+  "train_data": "train-images-idx3-ubyte",
+  "train_labels": "train-labels-idx1-ubyte",
+  "test_data": "t10k-images-idx3-ubyte",
+  "test_labels": "t10k-labels-idx1-ubyte"
+}

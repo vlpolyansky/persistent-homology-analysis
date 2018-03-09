@@ -1,0 +1,29 @@
+{
+  "data_folder": "./data/",
+
+  "algo": "ConvAutoencoder",
+  "dim": 3,
+
+  "kernel_sizes": [3, 3, 3],
+  "filters_nums": [8, 16, 16],
+  "pool_sizes": 2,
+
+  "batch_size": 128,
+  "train_iter": 350000,
+  "init_rate": 0.0001,
+
+  "save_dir": "./save/",
+  "logs_dir": "./logs/",
+
+  "input_shape": [28, 28],
+  "classes": 10,
+
+  "try_load": true,
+
+  "encoded_save_suffix": "encoded.txt",
+
+  "train_data": "train-images-idx3-ubyte",
+  "train_labels": "train-labels-idx1-ubyte",
+  "test_data": "t10k-images-idx3-ubyte",
+  "test_labels": "t10k-labels-idx1-ubyte"
+}

@@ -1,0 +1,41 @@
+{
+  "data_folder": "../_data/",
+  "max_memory_gb": 1,
+
+  "algo": "MixedAutoencoder",
+  "dim": 4,
+
+  "kernel_sizes": [3, 3, 3],
+  "filters_nums": [16, 32, 32],
+  "pool_sizes": [2, 2, 2],
+  "fc_layers": [400, 25, 4],
+
+  "filter_labels": null,
+  "num_angles": 1,
+  "blur_sigma": null,
+
+  "hom_labels": [0],
+  "postprocess": null,
+
+  "batch_size": 16,
+  "train_iter": 200000,
+  "init_rate": 0.0001,
+
+  "save_dir": "./save/",
+  "logs_dir": "./logs/",
+  "encoding_dir": "./encoded/",
+
+  "input_shape": [64, 64, 3],
+  "classes": null,
+
+  "try_load": true,
+
+  "to_encode": false,
+  "encoding_period": 2500,
+  "saving_period": 5000,
+
+  "encoded_save_suffix": "encoded.txt",
+
+  "data_name": "cmu",
+  "raw_data_folder": "/home/vlad/Documents/KTH/thesis/nn/data_earth_s2_64_v3/"
+}

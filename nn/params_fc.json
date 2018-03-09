@@ -1,0 +1,40 @@
+{
+  "data_folder": "../_data/",
+  "max_memory_gb": 1,
+
+  "algo": "FCAutoencoder",
+  "dim": 3,
+
+  "fc_layers": [32, 64, 32, 3],
+
+  "reg_scale": 0.0001,
+
+  "filter_labels": null,
+  "num_angles": 1,
+  "blur_sigma": null,
+
+  "hom_labels": [0],
+  "postprocess": null,
+
+  "batch_size": 128,
+  "train_iter": 400000,
+  "init_rate": 0.0001,
+
+  "save_dir": "./save/",
+  "logs_dir": "./logs/",
+  "encoding_dir": "./encoded/",
+
+  "input_shape": [4],
+  "classes": null,
+
+  "try_load": true,
+
+  "to_encode": false,
+  "encoding_period": 5000,
+  "saving_period": 10000,
+
+  "encoded_save_suffix": "encoded.txt",
+
+  "data_name": "vector",
+  "raw_data_folder": "/home/vlad/Documents/KTH/thesis/nn/data_sphere_4d/"
+}
