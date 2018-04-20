@@ -239,6 +239,34 @@ def encoder_wrapper(Encoder, params, **kwargs):
     return encode
 
 
+def encoder_with_decoder_wrapper(Encoder, params, **kwargs):
+    save_dir = params['save_dir']
+    save_file_path = os.path.join(save_dir, 'model.ckpt')
+
+    input_shape = params['input_shape']
+    input_ph = tf.placeholder(tf.float32, [None] + input_shape)
+
+    encoder = Encoder(trainable=True)
+    decoded, encoded = encoder.build_net(input_ph, **kwargs)
+
+    sess = tf.get_default_session()
+    saver = tf.train.Saver(var_list=tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES))
+
+    sess.run(tf.global_variables_initializer())
+
+    saver.restore(sess, save_file_path)
+    my_print('Model restored...\n')
+
+    def encode(data, labels):
+        feed = {
+            input_ph: data
+        }
+        encoded_val, decoded_val = sess.run([encoded, decoded], feed)
+        return np.hstack((labels[:, None], encoded_val)), decoded_val
+
+    return encode
+
+
 def decoder_wrapper(Encoder, params, **kwargs):
     save_dir = params['save_dir']
     save_file_path = os.path.join(save_dir, 'model.ckpt')
