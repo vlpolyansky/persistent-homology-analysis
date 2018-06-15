@@ -13,7 +13,7 @@
 //using Field_Zp = Gudhi::persistent_cohomology::Field_Zp;
 //using Persistent_cohomology = Gudhi::persistent_cohomology::Persistent_cohomology<gudhi_tools::SimplexTree , Field_Zp>;
 
-void raw_to_persistence_pairs(const std::string &raw_filename, double m, double percentage) {
+void raw_to_persistence_pairs(const std::string &raw_filename, double m, double percentage, int rep_num) {
 
     std::vector<gudhi_tools::Point<_MY_DIM>> points = gudhi_tools::read_points<_MY_DIM>(raw_filename);
     std::vector<int> ids = gudhi_tools::filter_by_dtm<_MY_DIM>(points, m, percentage);
@@ -42,7 +42,7 @@ void raw_to_persistence_pairs(const std::string &raw_filename, double m, double 
 
     std::vector<phat::index> chosen_indices;
     std::vector<phat::index> chosen_killers;
-    for (int i = 0; i < pairs.size() && chosen_indices.size() < phat_tools::MAX_REPRESENTATIVE_CNT; i++) {
+    for (int i = 0; i < pairs.size() && chosen_indices.size() < rep_num; i++) {
         if (std::get<0>(pairs[i]) > 0) {
             chosen_indices.push_back(std::get<1>(pairs[i]));
             chosen_killers.push_back(std::get<4>(pairs[i]));
@@ -67,6 +67,7 @@ int main(int argc, char **argv) {
 
     double m = 0.001;
     double percentage = 0.95;
+    int rep_num = 4;
 
     char *tmp = getCmdOption(argv, argv + argc, "--m");
     if (tmp) {
@@ -78,6 +79,11 @@ int main(int argc, char **argv) {
         percentage = std::atof(tmp);
     }
 
-    raw_to_persistence_pairs(std::string(argv[1]), m, percentage);
+    tmp = getCmdOption(argv, argv + argc, "--rep_num");
+    if (tmp) {
+        rep_num = std::atoi(tmp);
+    }
+
+    raw_to_persistence_pairs(std::string(argv[1]), m, percentage, rep_num);
     return 0;
 }

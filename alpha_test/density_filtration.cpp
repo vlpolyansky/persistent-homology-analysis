@@ -13,7 +13,7 @@
 //using Field_Zp = Gudhi::persistent_cohomology::Field_Zp;
 //using Persistent_cohomology = Gudhi::persistent_cohomology::Persistent_cohomology<gudhi_tools::SimplexTree , Field_Zp>;
 
-void raw_to_persistence_pairs(const std::string &raw_filename, double m, double alpha_value) {
+void raw_to_persistence_pairs(const std::string &raw_filename, double m, double alpha_value, int rep_num) {
 
     std::vector<gudhi_tools::Point<_MY_DIM>> points = gudhi_tools::read_points<_MY_DIM>(raw_filename);
 
@@ -55,7 +55,7 @@ void raw_to_persistence_pairs(const std::string &raw_filename, double m, double 
 
     std::vector<phat::index> chosen_indices;
     std::vector<phat::index> chosen_killers;
-    for (int i = 0; i < pairs.size() && chosen_indices.size() < phat_tools::MAX_REPRESENTATIVE_CNT; i++) {
+    for (int i = 0; i < pairs.size() && chosen_indices.size() < rep_num; i++) {
         if (std::get<0>(pairs[i]) > 0) {
             chosen_indices.push_back(std::get<1>(pairs[i]));
             chosen_killers.push_back(std::get<4>(pairs[i]));
@@ -79,8 +79,14 @@ int main(int argc, char **argv) {
         m = std::atof(tmp);
     }
 
+    int rep_num = 4;
+    tmp = getCmdOption(argv, argv + argc, "--rep_num");
+    if (tmp) {
+        rep_num = std::atoi(tmp);
+    }
+
     double alpha_value = std::atof(getCmdOption(argv, argv + argc, "--alpha"));
 
-    raw_to_persistence_pairs(std::string(argv[1]), m, alpha_value);
+    raw_to_persistence_pairs(std::string(argv[1]), m, alpha_value, rep_num);
     return 0;
 }

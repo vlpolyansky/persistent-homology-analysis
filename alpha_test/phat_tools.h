@@ -16,8 +16,6 @@
 
 namespace phat_tools {
 
-    const int MAX_REPRESENTATIVE_CNT = 4;
-
     using MatrixRepresentation = phat::bit_tree_pivot_column;
     using BoundaryMatrix = phat::boundary_matrix<MatrixRepresentation>;
 

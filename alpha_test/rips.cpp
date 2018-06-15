@@ -49,6 +49,19 @@ int main(int argc, char **argv) {
         skip = std::atoi(tmp);
     }
 
+    double percentage = 0.95;
+    tmp = getCmdOption(argv, argv + argc, "--percentage");
+    if (tmp) {
+        percentage = std::atof(tmp);
+    }
+
+    int rep_num = 4;
+    tmp = getCmdOption(argv, argv + argc, "--rep_num");
+    if (tmp) {
+        rep_num = std::atoi(tmp);
+    }
+
+
     std::vector<Point> points = read_points(filename, skip);
     std::vector<int> ids;
     for (int i = 0; i < points.size(); i++) {
@@ -69,7 +82,7 @@ int main(int argc, char **argv) {
     std::cout << "Rips complex is of dimension " << simplex.dimension() <<
               " - " << simplex.num_simplices() << " simplices - " <<
               simplex.num_vertices() << " vertices." << std::endl;
-    points.clear();
+//    points.clear();
 
     gudhi_tools::save_rips_filtration(simplex, "filtration.txt");
     std::cout << "Filtration computed" << std::endl;
@@ -84,7 +97,7 @@ int main(int argc, char **argv) {
     phat_tools::write_persistence_pairs(pairs, "pairs.txt");
 
     std::vector<phat::index> chosen_indices;
-    for (int i = 0; i < pairs.size() && chosen_indices.size() < phat_tools::MAX_REPRESENTATIVE_CNT; i++) {
+    for (int i = 0; i < pairs.size() && chosen_indices.size() < rep_num; i++) {
         if (std::get<0>(pairs[i]) == 1) {
             chosen_indices.push_back(std::get<1>(pairs[i]));
         }

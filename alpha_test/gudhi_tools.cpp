@@ -15,7 +15,13 @@ std::vector<gudhi_tools::PersistenceDiagram> gudhi_tools::read_diagram(const std
 
     int dim, id;
     double birth, death;
-    while (in >> dim >> id >> birth >> death) {
+    std::string death_s;
+    while (in >> dim >> id >> birth >> death_s) {
+        if (death_s == "inf") {
+            continue;
+        } else {
+            death = std::stod(death_s);
+        }
         while (diagrams.size() <= dim) {
             diagrams.push_back(gudhi_tools::PersistenceDiagram());
         }
